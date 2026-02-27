@@ -1,0 +1,103 @@
+/* ---------------------------------------------------------------------------
+   Layout — CSS Grid panels
+   --------------------------------------------------------------------------- */
+
+.app-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr 1fr;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #1a1a2e;
+  color: #e0d8c8;
+}
+
+/* Header — spans full width */
+.header {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: #16213e;
+  border-bottom: 1px solid #2a2a4a;
+}
+
+.header-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #d4a017;
+  font-family: 'Georgia', serif;
+}
+
+.header-subtitle {
+  font-size: 0.85em;
+  color: #666;
+  font-family: monospace;
+}
+
+/* Map panel — left side */
+.map-panel {
+  grid-column: 1;
+  grid-row: 2;
+  overflow: hidden;
+  border-right: 1px solid #2a2a4a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Right panel — narrative + inventory */
+.right-panel {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Narrative section */
+.narrative-panel {
+  flex: 1;
+  padding: 16px 20px;
+  overflow-y: auto;
+  border-bottom: 1px solid #2a2a4a;
+}
+
+/* Inventory section */
+.inventory-panel {
+  padding: 12px 20px;
+  border-bottom: 1px solid #2a2a4a;
+  background: #16213e;
+}
+
+/* Bottom bar — spans full width */
+.bottom-bar {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #2a2a4a;
+  background: #0f0f23;
+  max-height: 180px;
+}
+
+.stack-panel {
+  padding: 8px 16px;
+  border-right: 1px solid #2a2a4a;
+  overflow-y: auto;
+}
+
+.event-panel {
+  padding: 8px 16px;
+  overflow-y: auto;
+}
+
+/* Panel labels */
+.panel-label {
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #666;
+  margin-bottom: 6px;
+  font-family: monospace;
+}
