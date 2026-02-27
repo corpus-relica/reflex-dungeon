@@ -55,6 +55,7 @@ function westWingNodes(suffix: string): Record<string, any> {
         workflowId: 'combat',
         returnMap: [
           { parentKey: 'guard_combat_result', childKey: 'combat_result' },
+          { parentKey: 'player_hp', childKey: 'player_hp' },
         ],
       },
     },
@@ -242,6 +243,7 @@ export const dungeonCrawl: Workflow = {
         workflowId: 'combat',
         returnMap: [
           { parentKey: 'boss_combat_result', childKey: 'combat_result' },
+          { parentKey: 'player_hp', childKey: 'player_hp' },
         ],
       },
     },
