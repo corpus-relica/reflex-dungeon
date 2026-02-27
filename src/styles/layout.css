@@ -1,6 +1,52 @@
 /* ---------------------------------------------------------------------------
-   Layout — CSS Grid panels
+   Layout — Occult Cartography theme
+   CSS Custom Properties + Grid panels
    --------------------------------------------------------------------------- */
+
+:root {
+  /* Backgrounds */
+  --bg-void: #08080d;
+  --bg-deep: #0c0c14;
+  --bg-surface: #111118;
+  --bg-elevated: #181824;
+  --bg-panel: #13131e;
+
+  /* Gold spectrum */
+  --gold-dim: #6b5a2e;
+  --gold: #c9a84c;
+  --gold-bright: #e4c76b;
+  --gold-glow: rgba(201, 168, 76, 0.3);
+  --gold-subtle: rgba(201, 168, 76, 0.08);
+
+  /* Text */
+  --text-primary: #e8dcc8;
+  --text-secondary: #9a9080;
+  --text-dim: #5a5548;
+  --text-muted: #3a3530;
+
+  /* Accents */
+  --copper: #8b6b4a;
+  --blood: #7a2020;
+  --blood-bright: #a83030;
+  --sage: #4a6741;
+  --sage-light: #6a9a5a;
+  --ethereal: #4a6fa5;
+  --arcane: #7a5aa0;
+
+  /* Borders */
+  --border-subtle: rgba(201, 168, 76, 0.06);
+  --border-light: rgba(201, 168, 76, 0.12);
+  --border-medium: rgba(201, 168, 76, 0.22);
+  --border-strong: rgba(201, 168, 76, 0.4);
+
+  /* Fonts */
+  --font-display: 'Sorts Mill Goudy', 'Georgia', serif;
+  --font-heading: 'Marcellus', 'Georgia', serif;
+  --font-body: 'Cormorant Garamond', 'Georgia', serif;
+  --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+}
+
+/* ── App container ─────────────────────────────── */
 
 .app-container {
   display: grid;
@@ -9,95 +55,203 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #1a1a2e;
-  color: #e0d8c8;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  position: relative;
 }
 
-/* Header — spans full width */
+/* Noise texture overlay — adds tactile grain to the whole UI */
+.app-container::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ── Header ────────────────────────────────────── */
+
 .header {
   grid-column: 1 / -1;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 8px 16px;
-  background: #16213e;
-  border-bottom: 1px solid #2a2a4a;
+  padding: 14px 24px 10px;
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.04) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+  animation: slideDown 0.6s ease-out both;
+}
+
+/* Top decorative line */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
 }
 
 .header-title {
-  font-size: 1.3em;
-  font-weight: bold;
-  color: #d4a017;
-  font-family: 'Georgia', serif;
+  font-family: var(--font-display);
+  font-size: 1.5em;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.header-ornament {
+  color: var(--gold-dim);
+  margin: 0 12px;
+  font-size: 0.7em;
 }
 
 .header-subtitle {
-  font-size: 0.85em;
-  color: #666;
-  font-family: monospace;
+  font-family: var(--font-mono);
+  font-size: 0.65em;
+  font-weight: 300;
+  color: var(--text-dim);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-top: 2px;
 }
 
-/* Map panel — left side */
+/* ── Map panel ─────────────────────────────────── */
+
 .map-panel {
   grid-column: 1;
   grid-row: 2;
   overflow: hidden;
-  border-right: 1px solid #2a2a4a;
+  border-right: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
+  background: var(--bg-void);
+  animation: fadeInLeft 0.7s ease-out 0.15s both;
 }
 
-/* Right panel — narrative + inventory */
+/* ── Right panel ───────────────────────────────── */
+
 .right-panel {
   grid-column: 2;
   grid-row: 2;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background: var(--bg-deep);
+  animation: fadeInRight 0.7s ease-out 0.3s both;
 }
 
-/* Narrative section */
+/* ── Narrative section ─────────────────────────── */
+
 .narrative-panel {
   flex: 1;
-  padding: 16px 20px;
+  padding: 20px 24px;
   overflow-y: auto;
-  border-bottom: 1px solid #2a2a4a;
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
 }
 
-/* Inventory section */
+.narrative-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.narrative-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.narrative-panel::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 2px;
+}
+
+/* ── Inventory section ─────────────────────────── */
+
 .inventory-panel {
-  padding: 12px 20px;
-  border-bottom: 1px solid #2a2a4a;
-  background: #16213e;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
 }
 
-/* Bottom bar — spans full width */
+/* ── Bottom bar ────────────────────────────────── */
+
 .bottom-bar {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top: 1px solid #2a2a4a;
-  background: #0f0f23;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-void);
   max-height: 180px;
+  position: relative;
+  animation: fadeInUp 0.6s ease-out 0.45s both;
+}
+
+/* Decorative top line */
+.bottom-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
 }
 
 .stack-panel {
-  padding: 8px 16px;
-  border-right: 1px solid #2a2a4a;
+  padding: 10px 20px;
+  border-right: 1px solid var(--border-subtle);
   overflow-y: auto;
 }
 
 .event-panel {
-  padding: 8px 16px;
+  padding: 10px 20px;
   overflow-y: auto;
 }
 
-/* Panel labels */
+/* ── Panel labels ──────────────────────────────── */
+
 .panel-label {
-  font-size: 0.7em;
+  font-family: var(--font-heading);
+  font-size: 0.65em;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #666;
-  margin-bottom: 6px;
-  font-family: monospace;
+  letter-spacing: 0.25em;
+  color: var(--gold-dim);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-subtle), transparent);
+}
+
+/* ── Entrance animations ───────────────────────── */
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }

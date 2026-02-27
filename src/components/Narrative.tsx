@@ -70,7 +70,7 @@ export function Narrative({
       <div className="panel-label">Narrative</div>
       <div className="narrative-text">
         {displayedText}
-        {isTyping && <span style={{ opacity: 0.5 }}>▌</span>}
+        {isTyping && <span className="typing-cursor">|</span>}
       </div>
 
       {combatPanel}

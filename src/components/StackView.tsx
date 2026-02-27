@@ -18,8 +18,8 @@ export function StackView({ stack, currentWorkflowId, currentNodeId }: StackView
           <span className="workflow-name">{currentWorkflowId}</span>
           {' → '}
           <span className="node-name">{currentNodeId ?? '?'}</span>
-          {' '}
-          <span style={{ color: '#d4a017', fontSize: '0.85em' }}>← active</span>
+
+          <span className="stack-active-marker">&#8592; active</span>
         </div>
       )}
       {/* Suspended frames */}
@@ -32,9 +32,7 @@ export function StackView({ stack, currentWorkflowId, currentNodeId }: StackView
         </div>
       ))}
       {stack.length === 0 && !currentWorkflowId && (
-        <div style={{ color: '#555', fontFamily: 'monospace', fontSize: '0.8em' }}>
-          (empty)
-        </div>
+        <div className="stack-empty">(empty)</div>
       )}
     </div>
   );

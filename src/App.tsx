@@ -200,7 +200,11 @@ export function App({ engine, onReset }: AppProps) {
     <div className="app-container">
       {/* Header */}
       <div className="header">
-        <span className="header-title">⚔ The Tomb of Echoes</span>
+        <span className="header-title">
+          <span className="header-ornament">&#x25C8;</span>
+          The Tomb of Echoes
+          <span className="header-ornament">&#x25C8;</span>
+        </span>
         <span className="header-subtitle">reflex-dungeon</span>
       </div>
 
@@ -239,14 +243,14 @@ export function App({ engine, onReset }: AppProps) {
 
       {/* Ending overlay */}
       {state.completed && state.ending && (
-        <div className="ending-overlay">
-          <div className={`ending-card ${state.ending === 'victory' ? 'victory' : 'escape'}`}>
-            <div className={`ending-title ${state.ending === 'victory' ? 'victory' : 'escape'}`}>
+        <div className={`ending-overlay ${state.ending}-bg`}>
+          <div className={`ending-card ${state.ending}`}>
+            <div className={`ending-title ${state.ending}`}>
               {state.ending === 'victory'
-                ? '🏆 Victory'
+                ? 'Victory'
                 : state.ending === 'defeat'
-                  ? '💀 Defeated'
-                  : '🏃 Escaped'}
+                  ? 'Defeated'
+                  : 'Escaped'}
             </div>
             <div className="ending-text">{state.narrativeText}</div>
             <button className="play-again-btn" onClick={onReset}>

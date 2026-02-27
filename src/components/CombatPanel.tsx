@@ -12,9 +12,9 @@ interface CombatPanelProps {
 export function CombatPanel({ enemyName, enemyHp, enemyMaxHp, combatLog }: CombatPanelProps) {
   return (
     <div className="combat-panel">
-      <div className="combat-title">⚔ Combat: {enemyName}</div>
+      <div className="combat-title">Combat: {enemyName}</div>
       <div className="combat-enemy-hp">
-        <span className="health-label" style={{ color: '#e74c3c' }}>
+        <span className="combat-hp-label">
           Enemy HP:
         </span>
         <div className="enemy-hp-bar">
